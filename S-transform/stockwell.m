@@ -21,7 +21,6 @@ function out = stockwell(h)
 % used to change the length of the signal to pow2(nextpow2(length(h))) for
 % the ease of computation.
 
-% N = pow2(nextpow2(size(h,1)));
 N = size(h,1);
 Nhalf = fix(N/2);
 
