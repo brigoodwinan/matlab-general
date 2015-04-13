@@ -9,24 +9,32 @@ function makeTimeFreqPlot(x,dt,s)
 % signal on the bottom.
 %
 % INPUTS:
-% x: m-by-n matrix where x would be the output from x=stran(s). m is
+% x: m-by-n matrix where x would be the output from x = stockwell(s). m is
 %     frequency axis and n is time axis.
 % s: 1D signal
-% dt: time step
+% dt: time step or time vector (n-by-1)
 
 nlen = size(x,2);
 
+if length(dt)>1
+    t = dt;
+    dt = diff(t(1:2));
+else
+    t = dt:dt:dt*nlen;
+end
+
 if nargin<3
     figure
-    imagesc(dt:dt:dt*nlen,linspace(0,1,size(x,1)),abs(x));
+    imagesc(t,linspace(0,1/2/dt,size(x,1)),abs(x));
     axis xy
+    axis tight
 else
     figure
     ax(1) = subplot(2,1,1);
-    plot(dt:dt:dt*nlen,s,'k');
+    plot(t,s,'k');
     axis tight
     ax(2) = subplot(2,1,2);
-    imagesc(dt:dt:dt*nlen,linspace(0,1/2/dt,size(x,1)),abs(x));
+    imagesc(t,linspace(0,1/2/dt,size(x,1)),abs(x));
     axis xy
     linkaxes(ax,'x');
 end

@@ -5,9 +5,11 @@ function out = stockwell(h)
 %
 % 2015-04-11 - v2
 %
-% Stockwell transform on 1D time series data.
+% Stockwell transform on 1D time series data. Signal input can be of any
+% length (even or odd).
 %
-% Uses for loops for the purpose of conserving RAM.
+% Computes the stockwell transform using a "for loop" for the purpose of
+% conserving RAM (this is an alternative to "stran.m").
 %
 % INPUT:
 % in: n-by-1 vector array of time series data
@@ -15,11 +17,6 @@ function out = stockwell(h)
 % OUTPUT:
 % out: pow2(nextpow2(h))/2-by-n matrix of the stockwell transform (note
 %     that it is single sided).
-%
-% v2 Notes
-% Does the stockwell transform for a signal of any length. The function
-% used to change the length of the signal to pow2(nextpow2(length(h))) for
-% the ease of computation.
 
 N = size(h,1);
 Nhalf = fix(N/2);
