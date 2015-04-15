@@ -15,7 +15,7 @@ function out = stockwell(h)
 % in: n-by-1 vector array of time series data
 %
 % OUTPUT:
-% out: pow2(nextpow2(h))/2-by-n matrix of the stockwell transform (note
+% out: n/2-by-n matrix of the stockwell transform (note
 %     that it is single sided).
 
 N = size(h,1);

@@ -24,12 +24,10 @@ else
 end
 
 if nargin<3
-    figure
     imagesc(t,linspace(0,1/2/dt,size(x,1)),abs(x));
     axis xy
     axis tight
 else
-    figure
     ax(1) = subplot(2,1,1);
     plot(t,s,'k');
     axis tight
