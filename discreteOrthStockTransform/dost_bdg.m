@@ -1,11 +1,9 @@
-function [sxfm,new_sig,new_t] = stran_bdg(sig,t,windowSize,windowOverlap)
-% [sxfm,new_sig,new_t] = stran_bdg(sig,t,windowSize,windowOverlap)
+function [dc,new_sig,new_t] = dost_bdg(sig,t,windowSize,windowOverlap)
+% [dc,new_sig,new_t] = dost_bdg(sig,t,windowSize,windowOverlap)
 %
 % Brian Goodwin 2015-04-02
 %
-% This utilizes the "stran" function with the purpose of conserving memory.
-% The normal "stran" function could consume 32GB RAM given a signal of
-% length 20e3.
+% This utilizes the "dost" function with the purpose of conserving memory.
 %
 % INPUTS:
 % sig: n-by-1 signal
@@ -15,16 +13,22 @@ function [sxfm,new_sig,new_t] = stran_bdg(sig,t,windowSize,windowOverlap)
 %      (default: 0.5)
 %
 % OUTPUTS:
-% sxfm: s-transform
+% dc: discrete orthonormal time-frequency data for the signal.
 % new_sig: the new signal after truncation to line up with sxfm.
 % new_t: the new time stamps after truncation.
 
 n = length(sig);
 
+if isrow(sig)
+    sig = sig.';
+end
+
 if nargin<4
     windowOverlap = .5;
     if nargin<3
-        windowSize = 5000;
+        windowSize = 4096;
+    else
+        windowSize = pow2(nextpow2(windowSize));
     end
 end
 
@@ -35,14 +39,14 @@ keepValuesInWindow = fix(windowSize*windowOverlap/2)+1:fix(windowSize*(1-windowO
 nit = floor(n./(windowSize*(1-windowOverlap)))-1;
 n = nit*(windowSize*(1-windowOverlap))+windowSize*windowOverlap;
 
-sxfm = [];
+dc = [];
 
 iterations = round((0:nit-1)*windowSize*(1-windowOverlap)+1);
 
 for k = iterations
-    s = stockwell(sig(k:windowSize+k-1));
+    s = rearrange_dost(abs(dost(sig(k:windowSize+k-1))).');
     % s = stran(sig(k:windowSize+k-1));
-    sxfm = cat(2,sxfm,s(:,keepValuesInWindow));
+    dc = cat(2,dc,s(:,keepValuesInWindow));
 end
 
 newInd = keepValuesInWindow(1):n-(windowSize-keepValuesInWindow(end));
