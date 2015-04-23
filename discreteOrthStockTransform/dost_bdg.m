@@ -44,7 +44,7 @@ dc = [];
 iterations = round((0:nit-1)*windowSize*(1-windowOverlap)+1);
 
 for k = iterations
-    s = rearrange_dost(abs(dost(sig(k:windowSize+k-1))).');
+    s = dostMatrix(sig(k:windowSize+k-1));
     % s = stran(sig(k:windowSize+k-1));
     dc = cat(2,dc,s(:,keepValuesInWindow));
 end

@@ -10,7 +10,8 @@ function plotCollectionOfSignalsInOneWindow(s,t,varargin)
 % plot so that they are closer together and non-overlapping.
 %
 % INPUTS:
-% s: a cell structure where each cell is a signal.
+% s: a cell structure where each cell is a signal. s can also be a matrix
+%     where the signals to be plotted are columnwise.
 % t: (optional) the time:
 %     - if t is a cell: it is assumed that each cell contains the time values
 %         of the corresponding points in "s";
@@ -23,6 +24,11 @@ function plotCollectionOfSignalsInOneWindow(s,t,varargin)
 %
 % NOTE: currently, the signals in s1...N are scaled to fit in the bounds of
 %     the "s" signal. This should somehow be changed in future versions.
+
+if ~iscell(s)
+    [n,m] = size(s);
+    s = mat2cell(s,n,ones(m,1));
+end
 
 % find the mean max of all signals
 ns = length(s);
