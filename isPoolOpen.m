@@ -1,4 +1,5 @@
 function out = isPoolOpen()
+% Returns logical value if matlab parallel processing is open and ready.
 % isPoolOpen
 %
 % Brian Goodwin
