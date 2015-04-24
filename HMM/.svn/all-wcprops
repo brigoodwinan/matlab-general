@@ -1,0 +1,305 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM
+END
+sample_dhmm.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/sample_dhmm.m
+END
+mk_mhmm_obs_lik.m
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/mk_mhmm_obs_lik.m
+END
+log_lik_ghmm.m
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/log_lik_ghmm.m
+END
+normalise.m
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/normalise.m
+END
+test_fb_eqn.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/test_fb_eqn.m
+END
+gaussian_prob.m
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/gaussian_prob.m
+END
+em_converged.m
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/em_converged.m
+END
+log_lik_mhmm.m
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/log_lik_mhmm.m
+END
+predict_ghmm.m
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/predict_ghmm.m
+END
+fixed_lag_smoother.m
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/fixed_lag_smoother.m
+END
+forwards_unscaled.m
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/forwards_unscaled.m
+END
+learn_ghmm.m
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/learn_ghmm.m
+END
+init_ghmm.m
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/init_ghmm.m
+END
+prob_path.m
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/prob_path.m
+END
+mk_dhmm_obs_lik.m
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/mk_dhmm_obs_lik.m
+END
+learn_mhmm.m
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/learn_mhmm.m
+END
+mk_rnd_dhmm.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/mk_rnd_dhmm.m
+END
+sample_pomdp.m
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/sample_pomdp.m
+END
+init_mhmm.m
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/init_mhmm.m
+END
+sample_mdp.m
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/sample_mdp.m
+END
+log_lik_dhmm.m
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/log_lik_dhmm.m
+END
+forwards_backwards_mix.m
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/forwards_backwards_mix.m
+END
+enumerate_loglik.m
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/enumerate_loglik.m
+END
+forwards.m
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/forwards.m
+END
+sample_mc_endstate.m
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/sample_mc_endstate.m
+END
+forwards_backwards_oneslice.m
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/forwards_backwards_oneslice.m
+END
+compute_ess_dhmm.m
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/compute_ess_dhmm.m
+END
+mk_stochastic.m
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/mk_stochastic.m
+END
+mk_arhmm_obs_lik.m
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/mk_arhmm_obs_lik.m
+END
+isvector.m
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/isvector.m
+END
+prune_dhmm.m
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/prune_dhmm.m
+END
+sample_mhmm.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/sample_mhmm.m
+END
+approxeq.m
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/approxeq.m
+END
+sample_mc.m
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/sample_mc.m
+END
+assert.m
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/assert.m
+END
+mk_dotfile_from_hmm.m
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/mk_dotfile_from_hmm.m
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/README
+END
+parseable_dhmm.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/parseable_dhmm.m
+END
+sample_discrete.m
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/sample_discrete.m
+END
+collapse_mog.m
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/collapse_mog.m
+END
+online_em.m
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/online_em.m
+END
+learn_dhmm.m
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/learn_dhmm.m
+END
+forwards_backwards_pomdp.m
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/forwards_backwards_pomdp.m
+END
+forwards_backwards.m
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/forwards_backwards.m
+END
+update_ghmm_bel.m
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/update_ghmm_bel.m
+END
+sample_dhmm_endstate.m
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/sample_dhmm_endstate.m
+END
+mkdot.m
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/mkdot.m
+END
+learn_dhmm_simple.m
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/learn_dhmm_simple.m
+END
+viterbi_path.m
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/viterbi_path.m
+END
+mk_ghmm_obs_lik.m
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/mk_ghmm_obs_lik.m
+END

@@ -1,6 +1,6 @@
-function [out,N] = divideSignalIntoWindows(inSig,n,overlap)
+function [out,I] = divideSignalIntoWindows(inSig,n,overlap)
 % out = divideSignalIntoWindows(inSig,n,overlap)
-% [out,N_new] = divideSignalIntoWindows(inSig,n,overlap)
+% [out,I] = divideSignalIntoWindows(inSig,n,overlap)
 %
 % Brian Goodwin 2015-04-22
 %
@@ -12,8 +12,8 @@ function [out,N] = divideSignalIntoWindows(inSig,n,overlap)
 % INPUT:
 % inSig: N-by-1 input signal
 % n: size of the window (integer)
-% overlap: size of the window overlap. 
-%      - If an integer (1 >= overlap > n), the windows overlap the 
+% overlap: size of the window overlap.
+%      - If an integer (1 >= overlap > n), the windows overlap the
 %           specified number of points.
 %      - If a decimal (0 >= overlap > 1), the windows overlap the specified
 %           fraction of the window.
@@ -21,14 +21,14 @@ function [out,N] = divideSignalIntoWindows(inSig,n,overlap)
 % OUTPUT:
 % out: n-by-m matrix of the signal into respective windows. m is the
 %      maximum number of windows within the signal.
-% N_new: (optional) length of the signal that was divided into windows due
-%      to rounding
+% I: (optional) n-by-m matrix where each entry denotes the index of the
+%      point from the signal (INT32 integer). i.e., out = inSig(I);
 
 % % Debugging
 % inSig = randn(100,1);
 % n = 23;
 % overlap = .75;
-% 
+%
 
 N = length(inSig);
 
@@ -42,11 +42,22 @@ if overlap<1
     overlap = fix(n*overlap);
 end
 
-nit = floor((N-overlap)./(n-overlap))-1;
+nit = floor((N-overlap)./(n-overlap));
 N = nit*(n-overlap)+overlap;
 
 iterations = round((0:nit-1)*(n-overlap)+1);
 out = [];
 for k = iterations
     out = cat(2,out,inSig(k:n+k-1));
+end
+
+if nargout>1
+    if N<=intmax('uint16')
+        I = uint16(1:N).';
+    elseif N<=intmax('uint32')
+        I = uint32(1:N).';
+    else
+        I = uint64(1:N).';
+    end
+    I = divideSignalIntoWindows(I,n,overlap);
 end

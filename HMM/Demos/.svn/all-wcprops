@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/Demos
+END
+fixed_lag_demo.m
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/Demos/fixed_lag_demo.m
+END
+online_em_demo.m
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/Demos/online_em_demo.m
+END
+learn_dhmm_demo.m
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/Demos/learn_dhmm_demo.m
+END
+learn_mhmm_demo.m
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/39/trunk/MatLab_v1.3/BNT/HMM/Demos/learn_mhmm_demo.m
+END
