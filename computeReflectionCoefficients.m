@@ -1,6 +1,6 @@
-function [K,t,A] = computeReflectionCoefficients(inSig,windowSize,windowOverlap,maxLag)
-% [K,t,A] = computeReflectionCoefficients(inSig,windowSize,windowOverlap,maxLag)
-% [K,t,A] = computeReflectionCoefficients(inSig,windowSize,windowOverlap)
+function [K,A,t] = computeReflectionCoefficients(inSig,windowSize,windowOverlap,maxLag)
+% [K,A,t] = computeReflectionCoefficients(inSig,windowSize,windowOverlap,maxLag)
+% [K,A,t] = computeReflectionCoefficients(inSig,windowSize,windowOverlap)
 %
 % Brian Goodwin 2015-04-24
 %
@@ -20,9 +20,9 @@ function [K,t,A] = computeReflectionCoefficients(inSig,windowSize,windowOverlap,
 % OUTPUT:
 % K: maxLag-by-M matrix of the cepstral coefficients for each window of
 %     the signal.
+% A: (optional) LPC coefficients
 % t: (optional) 1-by-M array of the first timepoint of each window. (only if inSig is
 %     n-by-2 - (see INPUT: inSig).
-% A: (optional) LPC coefficients
 
 if size(inSig,2)>1
     t = inSig(:,2);
@@ -51,16 +51,19 @@ hac.MaximumLag = maxLag; % Compute autocorrelation lags between
 [N,M] = size(winSig);
 if isPoolOpen
     K = cell(1,M);
+    A = cell(1,M);
     winSig = mat2cell(winSig,N,ones(1,M));
     parfor k = 1:M
         a = step(hac, winSig{k});
-        [A,K{k}] = step(hlevinson, a); % Compute LPC coefficients
+        [A{k},K{k}] = step(hlevinson, a); % Compute LPC coefficients
     end
     K = cell2mat(K);
+    A = cell2mat(A);
 else
     K = zeros(maxLag,M);
+    A = zeros(maxLag+1,M);
     for k = 1:M
         a = step(hac, winSig(:,k));
-        [A,K(:,k)] = step(hlevinson, a); % Compute LPC coefficients
+        [A(:,k),K(:,k)] = step(hlevinson, a); % Compute LPC coefficients
     end
 end
