@@ -18,7 +18,7 @@ function [K,t,A] = computeReflectionCoefficients(inSig,windowSize,windowOverlap,
 %     levinson equation (default = 10).
 %
 % OUTPUT:
-% out: maxLag-by-M matrix of the cepstral coefficients for each window of
+% K: maxLag-by-M matrix of the cepstral coefficients for each window of
 %     the signal.
 % t: (optional) 1-by-M array of the first timepoint of each window. (only if inSig is
 %     n-by-2 - (see INPUT: inSig).
