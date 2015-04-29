@@ -60,7 +60,11 @@ for k = 1:sum(indS)
     end
 end
 
-nlen = size(varargin{1},2);
+if exist('s','var')
+    nlen = length(s);
+else
+    nlen = size(varargin{1},2);
+end
 
 if ~exist('scaling','var')
     scaling = [0,1];
@@ -74,6 +78,8 @@ if exist('dt','var')
 else
     t = 1:nlen;
 end
+tn = length(t);
+tmpt = t;
 
 nplots = sum(indTF);
 axnum = 0;
@@ -90,11 +96,19 @@ for k = 1:sum(indTF)
     if isFreq
         x = linspace(0,1/2/dt,size(varargin{k},1));
     else
-        x = 1:size(varargin{k},1);
+        xn = size(varargin{k},1);
+        x = 1:xn;
+        if xn~=tn
+            tmpt = t;
+            t = linspace(min(t),max(t),xn);
+        end
+        
     end
     
     imagesc(t,x,varargin{k},scaling);
     axis xy
     axis tight
+    
+    t = tmpt;
 end
 linkaxes(ax,'x');
