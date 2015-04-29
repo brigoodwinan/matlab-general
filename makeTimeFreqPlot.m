@@ -19,7 +19,7 @@ function makeTimeFreqPlot(varargin)
 % dt: time step or time vector (n-by-1)
 % scaling: (optional) 1-by-2 array of the values to scale the color bar to.
 %     This is the last input of the imagesc function (e.g., [0,0.5],
-%     default is[0,1].
+%     default is [0,1].
 % string input: if string is 'frequency', then the output is
 %     time-frequency.
 
@@ -27,7 +27,7 @@ nin = length(varargin);
 a = zeros(nin,1);
 b = zeros(nin,1);
 for k = 1:nin
-    [a,b] = size(varargin{k});
+    [a(k),b(k)] = size(varargin{k});
 end
 
 indTF = a>1 & b>1;
