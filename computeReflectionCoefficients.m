@@ -1,6 +1,5 @@
-function [K,t,A] = computeReflectionCoefficients(inSig,windowSize,windowOverlap,nCoef,maxLag)
-% [K,t,A] = computeReflectionCoefficients(inSig,windowSize,windowOverlap,nCoef,maxLag)
-% [K,t,A] = computeReflectionCoefficients(inSig,windowSize,windowOverlap,nCoef)
+function [K,t,A] = computeReflectionCoefficients(inSig,windowSize,windowOverlap,maxLag)
+% [K,t,A] = computeReflectionCoefficients(inSig,windowSize,windowOverlap,maxLag)
 % [K,t,A] = computeReflectionCoefficients(inSig,windowSize,windowOverlap)
 %
 % Brian Goodwin 2015-04-24
@@ -15,12 +14,11 @@ function [K,t,A] = computeReflectionCoefficients(inSig,windowSize,windowOverlap,
 % windowSize: point length of window.
 % windowOverlap: either a decimal (0 >= windowOverlap > 1) or integer
 %     (0 >= windowOverlap > windowSize) of the number of points to overlap.
-% nCoef: number of cepstral coefficients (optional; default = 9).
 % maxLag: maximum number of lags of the autocorrelation to compute for
-%     levinson equation (default = 10.
+%     levinson equation (default = 10).
 %
 % OUTPUT:
-% out: (nCoef-2)-by-M matrix of the cepstral coefficients for each window of
+% out: maxLag-by-M matrix of the cepstral coefficients for each window of
 %     the signal.
 % t: (optional) 1-by-M array of the first timepoint of each window. (only if inSig is
 %     n-by-2 - (see INPUT: inSig).
@@ -43,19 +41,11 @@ hlevinson.AOutputPort = true; % Output polynomial coefficients
 hac = dsp.Autocorrelator;
 hac.MaximumLagSource = 'Property';
 
-if nargin<5
+if nargin<4
     maxLag = 10;
 end
 
 hac.MaximumLag = maxLag; % Compute autocorrelation lags between
-
-if nargin>3
-    if isempty(nCoef)
-        nCoef = 9;
-    end
-else
-    nCoef = 9;
-end
 
 % Main for loop for computing the cepstral coefficients for the signal.
 [N,M] = size(winSig);
@@ -68,7 +58,7 @@ if isPoolOpen
     end
     K = cell2mat(K);
 else
-    K = zeros(nCoef-2,M);
+    K = zeros(maxLag,M);
     for k = 1:M
         a = step(hac, winSig(:,k));
         [A,K(:,k)] = step(hlevinson, a); % Compute LPC coefficients
