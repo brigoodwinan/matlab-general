@@ -31,14 +31,12 @@ for k = 1:nin
 end
 
 indTF = a>1 & b>1;
-indS = a==1 | b==1;
-indnS = find(indS);
 
 isFreq = false;
 
-for k = 1:sum(indS)
-    tmp = varargin{indnS(k)};
-    tmpn = length(tmp);
+for k = 1:nin
+    tmp = varargin{k};
+    tmpn = b(k)*a(k);
     
     if ischar(tmp)
         if strcmpi(tmp,'frequency')
@@ -51,12 +49,12 @@ for k = 1:sum(indS)
         scaling = tmp;
     end
     
-    if tmpn==1 || (tmpn>2 && k>1)
-        dt = tmp;
-    end
-    
-    if tmpn>2 && k==1
-        s = tmp;
+    if (a(k)==1 || b(k)==1) || (tmpn>2 && k>1) && ~ischar(tmp)
+        if any(diff(tmp)<0)
+            s = tmp;
+        else
+            dt = tmp;
+        end
     end
 end
 
