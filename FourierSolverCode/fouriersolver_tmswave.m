@@ -2,15 +2,16 @@
 %
 % 2013-12-26, Brian Goodwin
 %
-% Uses the Fourier Solver to solve for the time dependent waveform of the
-% voltage at a node in our FEM.
+% Uses the Fourier Solver technique to solve for the time dependent
+% waveform of the voltage at a node in our FEM.
 %
 % Assumes that the solution frequency of the FEM was 1kHz.
 %
 % This prevents us from having to do the extra work of converting
 % the voltage at each node to the time domain. The solution can be
-% sent to NRNIV directly since the TMS wave. The following two files
-% have been generated using this m-script:
+% sent to NRNIV directly.
+%
+% The following two files have been generated using this m-script:
 % 
 % */Project_NEURON_MODEL/AmatrudoWeaver_GoodwinMod/modified_amatrudo_goodwin/tms_wave10ms_MagstimRapid.txt
 % */Project_NEURON_MODEL/AmatrudoWeaver_GoodwinMod/modified_amatrudo_goodwin/tms_wave10ms_Magstim200.txt

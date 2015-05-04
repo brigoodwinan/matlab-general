@@ -18,11 +18,11 @@ function [K,A,t] = computeReflectionCoefficients(inSig,windowSize,windowOverlap,
 %     levinson equation (default = 10).
 %
 % OUTPUT:
-% K: maxLag-by-M matrix of the cepstral coefficients for each window of
+% K: maxLag-by-M matrix of the reflection coefficients for each window of
 %     the signal.
-% A: (optional) LPC coefficients
-% t: (optional) 1-by-M array of the first timepoint of each window. (only if inSig is
-%     n-by-2 - (see INPUT: inSig).
+% A: LPCs (linear prediction coefficients)
+% t: 1-by-M array of the first timepoint of each window. (only if inSig is
+%     n-by-2 - see INPUT: inSig).
 
 if size(inSig,2)>1
     t = inSig(:,2);
