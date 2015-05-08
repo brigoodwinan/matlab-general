@@ -76,8 +76,6 @@ if ~isempty(varargin)
         error('Must provide even number of inputs for plotCollection(i.e., signal and time for each input).')
     end
     
-    newSpacing = (mxAbs-mnAbs)./(ns);
-    
     %{
     newMax = zeros(ns,1);
     for k = 1:ns
@@ -87,19 +85,24 @@ if ~isempty(varargin)
     %}
     
     for k = 1:2:ns*2
+        numSigs = length(varargin{k});
+        newSpacing = (mxAbs-mnAbs)./(numSigs);
+        
         newZero = newSpacing/2+mxAbs;
         t = varargin{k+1};
         if iscell(t)
-            for kk = 1:length(varargin{k})
+            for kk = 1:numSigs
                 newZero = newZero-newSpacing;
                 newMax = 1/max(max(abs(varargin{k}{kk})))*newSpacing/2;
                 plot(t{kk},varargin{k}{kk}*newMax+newZero)
+                plot([min(t{kk}),max(t{kk})],[newZero,newZero],'color',[.5 .5 .5])
             end
         else
-            for kk = 1:length(varargin{k})
+            for kk = 1:numSigs
                 newZero = newZero-newSpacing;
                 newMax = 1/max(max(abs(varargin{k}{kk})))*newSpacing/2;
                 plot(t,varargin{k}{kk}*newMax+newZero)
+                plot([min(t),max(t)],[newZero,newZero],'color',[.5 .5 .5])
             end
         end
     end

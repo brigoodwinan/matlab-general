@@ -31,7 +31,7 @@ end
 
 if exist('t','var')
     [winSig,I] = divideSignalIntoWindows(inSig,windowSize,windowOverlap);
-    t = t(I(1,:));
+    t = t(I(fix(windowSize/2),:)); % the time point is in the middle of the window here, instead of the first time point of each window.
 else
     winSig = divideSignalIntoWindows(inSig,windowSize,windowOverlap);
 end

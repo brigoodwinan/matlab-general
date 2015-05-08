@@ -47,6 +47,7 @@ for k = 1:nin
     
     if tmpn==2
         scaling = tmp;
+        continue
     end
     
     if (a(k)==1 || b(k)==1) || (tmpn>2 && k>1) && ~ischar(tmp)
