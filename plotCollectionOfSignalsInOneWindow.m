@@ -90,17 +90,26 @@ if ~isempty(varargin)
         
         newZero = newSpacing/2+mxAbs;
         t = varargin{k+1};
+        
+        newMax = 0;
+        for kk = 1:numSigs
+            newMax = max(max(max(abs(varargin{k}{kk}))),newMax);
+        end
+        
+        newMax = 1/newMax*newSpacing/2;
+        
+        % newMax = 1/max(max(abs(varargin{k}{kk})))*newSpacing/2;
+        
         if iscell(t)
             for kk = 1:numSigs
                 newZero = newZero-newSpacing;
-                newMax = 1/max(max(abs(varargin{k}{kk})))*newSpacing/2;
+                % newMax = 1/max(max(abs(varargin{k}{kk})))*newSpacing/2;
                 plot(t{kk},varargin{k}{kk}*newMax+newZero)
                 plot([min(t{kk}),max(t{kk})],[newZero,newZero],'color',[.5 .5 .5])
             end
         else
             for kk = 1:numSigs
                 newZero = newZero-newSpacing;
-                newMax = 1/max(max(abs(varargin{k}{kk})))*newSpacing/2;
                 plot(t,varargin{k}{kk}*newMax+newZero)
                 plot([min(t),max(t)],[newZero,newZero],'color',[.5 .5 .5])
             end

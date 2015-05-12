@@ -42,15 +42,9 @@ for k = 1:nin
         if strcmpi(tmp,'frequency')
             isFreq = true;
         end
-        continue
-    end
-    
-    if tmpn==2
+    elseif tmpn==2
         scaling = tmp;
-        continue
-    end
-    
-    if (a(k)==1 || b(k)==1) || (tmpn>2 && k>1) && ~ischar(tmp)
+    elseif (a(k)==1 || b(k)==1) || (tmpn>2 && k>1)
         if any(diff(tmp)<0)
             s = tmp;
         else
@@ -71,6 +65,7 @@ end
 if exist('dt','var')
     if length(dt)>1
         t = dt;
+        dt = diff(t(1:2));
     else
         t = dt:dt:dt*nlen;
     end
@@ -88,23 +83,24 @@ if exist('s','var')
     ax(1) = subplot(nplots,1,1);
     plot(t,s,'k');
 end
+
 for k = 1:sum(indTF)
     axnum = axnum+1;
     ax(axnum) = subplot(nplots,1,axnum);
     
     if isFreq
-        x = linspace(0,1/2/dt,size(varargin{k},1));
+        f = linspace(0,1/2/dt,size(varargin{k},1));
     else
-        xn = size(varargin{k},1);
-        x = 1:xn;
-        if xn~=tn
+        fn = size(varargin{k},1);
+        f = 1:fn;
+        if fn~=tn
             tmpt = t;
-            t = linspace(min(t),max(t),xn);
+            t = linspace(min(t),max(t),fn);
         end
         
     end
     
-    imagesc(t,x,varargin{k},scaling);
+    imagesc(t,f,varargin{k},scaling);
     axis xy
     axis tight
     

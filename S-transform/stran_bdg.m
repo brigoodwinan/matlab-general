@@ -3,7 +3,7 @@ function [sxfm,new_sig,new_t] = stran_bdg(sig,t,windowSize,windowOverlap)
 %
 % Brian Goodwin 2015-04-02
 %
-% This utilizes the "stran" function with the purpose of conserving memory.
+% This utilizes the "stockwell" function with the purpose of conserving memory.
 % The normal "stran" function could consume 32GB RAM given a signal of
 % length 20e3.
 %
