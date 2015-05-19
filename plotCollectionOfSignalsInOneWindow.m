@@ -1,6 +1,7 @@
-function plotCollectionOfSignalsInOneWindow(s,t,varargin)
+function varargout = plotCollectionOfSignalsInOneWindow(s,t,varargin)
 % plotCollectionOfSignalsInOneWindow(s,t)
 % plotCollectionOfSignalsInOneWindow(s1,t1,s2,t2,...,sN,tN)
+% [scaling1,scaling2,...] = plotCollectionOfSignalsInOneWindow(s1,t1,s2,t2,...,sN,tN)
 %
 % Brian Goodwin, 2015-04-02
 %
@@ -21,6 +22,10 @@ function plotCollectionOfSignalsInOneWindow(s,t,varargin)
 % s1...N: signals that have the same form of s, but these will be plotted
 %     in such a way where they are "on top" of all the signals of "s".
 % t1...N: time series (same as t) for each sn.
+%
+% OUTPUTS:
+% scalings: (optional) the scale factors used to plot the secondary signals (s2 and
+%         onward) within the plotting window
 %
 % NOTE: currently, the signals in s1...N are scaled to fit in the bounds of
 %     the "s" signal. This should somehow be changed in future versions.
@@ -83,8 +88,10 @@ if ~isempty(varargin)
     end
     newMax = rms(newMax);
     %}
-    
+    i = 0;
+    varargout = cell(nargout,1);
     for k = 1:2:ns*2
+        i = i+1;
         numSigs = length(varargin{k});
         newSpacing = (mxAbs-mnAbs)./(numSigs);
         
@@ -97,7 +104,7 @@ if ~isempty(varargin)
         end
         
         newMax = 1/newMax*newSpacing/2;
-        
+        varargout{i} = newMax;
         % newMax = 1/max(max(abs(varargin{k}{kk})))*newSpacing/2;
         
         if iscell(t)
