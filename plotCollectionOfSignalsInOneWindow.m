@@ -27,8 +27,14 @@ function varargout = plotCollectionOfSignalsInOneWindow(s,t,varargin)
 % scalings: (optional) the scale factors used to plot the secondary signals (s2 and
 %         onward) within the plotting window
 %
-% NOTE: currently, the signals in s1...N are scaled to fit in the bounds of
-%     the "s" signal. This should somehow be changed in future versions.
+% NOTE:
+% - Currently, the signals in s1...N are scaled to fit in the bounds of
+%     the "s" signal. This should somehow be changed where something like
+%     plotyy is employed.
+%
+% IMPORTANT:
+% - If any signal is all zeros (e.g., x = [1,2,3] y = zeros(3,1)), they
+%     will displayed as red circles.
 
 if ~iscell(s)
     [n,m] = size(s);
@@ -102,23 +108,43 @@ if ~isempty(varargin)
         for kk = 1:numSigs
             newMax = max(max(max(abs(varargin{k}{kk}))),newMax);
         end
+        redCircles = false;
+        if newMax==0
+            newMax = 1;
+            redCircles = true;
+        else
+            newMax = 1/newMax*newSpacing/2;
+        end
         
-        newMax = 1/newMax*newSpacing/2;
-        varargout{i} = newMax;
+        if nargout>0
+            varargout{i} = newMax;
+        end
         % newMax = 1/max(max(abs(varargin{k}{kk})))*newSpacing/2;
-        
+        sepi = separateSigBy;
         if iscell(t)
             for kk = 1:numSigs
                 newZero = newZero-newSpacing;
                 % newMax = 1/max(max(abs(varargin{k}{kk})))*newSpacing/2;
-                plot(t{kk},varargin{k}{kk}*newMax+newZero)
-                plot([min(t{kk}),max(t{kk})],[newZero,newZero],'color',[.5 .5 .5])
+                
+                if redCircles
+                    sepi = sepi-separateSigBy;
+                    plot(t{kk},varargin{k}{kk}+sepi,'.r','markersize',20)
+                else
+                    plot([min(t{kk}),max(t{kk})],[newZero,newZero],'color',[.5 .5 .5])
+                    plot(t{kk},varargin{k}{kk}*newMax+newZero)
+                end
             end
         else
             for kk = 1:numSigs
                 newZero = newZero-newSpacing;
-                plot(t,varargin{k}{kk}*newMax+newZero)
-                plot([min(t),max(t)],[newZero,newZero],'color',[.5 .5 .5])
+                
+                if redCircles
+                    sepi = sepi-separateSigBy;
+                    plot(t,varargin{k}{kk}+sepi,'.r','markersize',20)
+                else
+                    plot([min(t),max(t)],[newZero,newZero],'color',[.5 .5 .5])
+                    plot(t,varargin{k}{kk}*newMax+newZero)
+                end
             end
         end
     end
