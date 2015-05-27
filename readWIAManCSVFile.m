@@ -11,8 +11,9 @@ function readWIAManCSVFile(filename,savematfile)
 %
 % INPUTS:
 % filename: full path (string) of filename (just drag and drop the filename
-%     into the workspace.
-% savematfile: full path to where "mechdata.mat" will be saved.
+%     into the workspace. 
+% savematfile: name of *mat file to be saved. Automatically saved to the
+%     folder it came from.
 %
 % OUTPUTS:
 % dat: data output. The first column is "time"
@@ -34,7 +35,8 @@ headings = c{1}(2:end);
 if nargin>1
     mech.x = dat;
     mech.head = headings;
-    save(fullfile(savematfile,'mechdata.mat'),'mech');
+    [pathstr,name,ext] = fileparts(filename);
+    save(fullfile(pathstr,savematfile),'mech');
 else
     mech.x = dat;
     mech.head = headings;
