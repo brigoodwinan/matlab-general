@@ -3,6 +3,8 @@ function r = bary2cart(lambda,v,f)
 %
 % 2014-09-16 Brian Goodwin
 %
+% Requires the iso2mesh toolbox for the "surfnorm()" function.
+%
 % Converts Barycentric coordinates to cartesian coordinates.
 %
 % INPUTS:
