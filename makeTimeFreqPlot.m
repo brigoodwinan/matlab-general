@@ -1,10 +1,11 @@
-function makeTimeFreqPlot(varargin)
+function ax = makeTimeFreqPlot(varargin)
 % makeTimeFreqPlot(x1,x2,...,x3,s,dt,scaling)
 % makeTimeFreqPlot(x1,x2,...,x3,s,dt)
 % makeTimeFreqPlot(x1,x2,...,x3,s,scaling)
 % makeTimeFreqPlot(x1,x2,...,x3,s)
 % makeTimeFreqPlot(x1,x2,...,x3,scaling)
 % makeTimeFreqPlot(...,'frequency')
+% ax = makeTimeFreqPlot(...)
 %
 % Brian Goodwin, 2015-03-05
 %
@@ -22,6 +23,9 @@ function makeTimeFreqPlot(varargin)
 %     default is [0,1].
 % string input: if string is 'frequency', then the output is
 %     time-frequency.
+%
+% OUTPUTS:
+% ax: axis array of the subplot handles.
 
 nin = length(varargin);
 a = zeros(nin,1);
