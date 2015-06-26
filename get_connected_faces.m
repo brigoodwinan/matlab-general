@@ -10,6 +10,9 @@ function [IDs,faces] = get_connected_faces(f,id,num)
 % Retrieves the IDs of first [num] closest connected faces
 % given the 1-based indexed face (nn x 3).
 %
+% Note, an error message will occur if num is not large enough for the
+% given faces.
+%
 % INPUTS:
 % f == 3-column vector of the trisurf faces.
 % id   == node ID to find the closest connected faces.
@@ -32,9 +35,15 @@ while sum(IDs)<num
     logic = repmat(f(:,1),1,n)==ids|repmat(f(:,2),1,n)==ids|repmat(f(:,3),1,n)==ids;
     IDs = any(logic,2);
 end
-fin = find(tmp~=IDs);
-fin = fin(1:(sum(IDs)-num));
-IDs(fin) = false;
+if exist('tmp','var')
+    fin = find(tmp~=IDs);
+    fin = fin(1:(sum(IDs)-num));
+    IDs(fin) = false;
+end
 faces = f(IDs,:);
 IDs = find(IDs);
+if numel(IDs)>num
+    IDs = IDs(1:num);
+    faces = f(IDs,:);
+end
 return
