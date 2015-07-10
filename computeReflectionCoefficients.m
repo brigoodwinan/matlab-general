@@ -15,7 +15,7 @@ function [K,A,t] = computeReflectionCoefficients(inSig,windowSize,windowOverlap,
 % windowOverlap: either a decimal (0 >= windowOverlap > 1) or integer
 %     (0 >= windowOverlap > windowSize) of the number of points to overlap.
 % maxLag: maximum number of lags of the autocorrelation to compute for
-%     levinson equation (default = 10).
+%     levinson equation (default = 16).
 %
 % OUTPUT:
 % K: maxLag-by-M matrix of the reflection coefficients for each window of
@@ -42,7 +42,7 @@ hac = dsp.Autocorrelator;
 hac.MaximumLagSource = 'Property';
 
 if nargin<4
-    maxLag = 10;
+    maxLag = 16;
 end
 
 hac.MaximumLag = maxLag; % Compute autocorrelation lags between
