@@ -43,7 +43,7 @@ frewind(fid);
 
 ae = textscan(fid,'%f','Delimiter',',','HeaderLines',i-1);
 ae = ae{1}(~isnan(ae{1}));
-ae = reshape(ae,3,numel(ae)/3); % will get an error here if wrong format.
+ae = reshape(ae,3,numel(ae)/3).'; % will get an error here if wrong format.
 aet = ae(:,1);
 ae = {ae(:,2)};
 fclose(fid);
