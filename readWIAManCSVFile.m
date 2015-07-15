@@ -6,8 +6,8 @@ function readWIAManCSVFile(filename,savematfile)
 %
 % Brian Goodwin, 2015-02-19
 %
-% Reads in Army Man files that typically are named something like...
-% '08-003 unfiltered data 03Jul14 10-25-57.csv'.
+% Reads files that typically are named something like...
+% '08-003 unfiltered data...csv'.
 %
 % INPUTS:
 % filename: full path (string) of filename (just drag and drop the filename
