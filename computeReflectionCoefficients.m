@@ -4,7 +4,8 @@ function [K,A,t] = computeReflectionCoefficients(inSig,windowSize,windowOverlap,
 %
 % Brian Goodwin 2015-04-24
 %
-% Computes the reflection coefficients of an input signal.
+% Computes the reflection coefficients of an input signal. Another option
+% would be to use the schurrc() function.
 %
 % Requires the DSP toolbox and Matlab 2015.
 %
@@ -21,12 +22,18 @@ function [K,A,t] = computeReflectionCoefficients(inSig,windowSize,windowOverlap,
 % K: maxLag-by-M matrix of the reflection coefficients for each window of
 %     the signal.
 % A: LPCs (linear prediction coefficients)
-% t: 1-by-M array of the first timepoint of each window. (only if inSig is
-%     n-by-2 - see INPUT: inSig).
+% t: 1-by-M array of the middle timepoint of each window. (only if inSig is
+%     n-by-2 - see INPUT: inSig). If no "time" column in "inSig" is
+%     supplied, then "t" will contain all the indices that lie in the
+%     middle of the windows.
 
 if size(inSig,2)>1
     t = inSig(:,2);
     inSig = inSig(:,1);
+else
+    if nargout>2
+        t = uint32(1:length(inSig)); % Set "t" to an integer for outputting index
+    end
 end
 
 if exist('t','var')
@@ -47,7 +54,7 @@ end
 
 hac.MaximumLag = maxLag; % Compute autocorrelation lags between
 
-% Main for loop for computing the cepstral coefficients for the signal.
+% Main for loop for computing the reflection coefficients for the signal.
 [N,M] = size(winSig);
 if isPoolOpen
     K = cell(1,M);

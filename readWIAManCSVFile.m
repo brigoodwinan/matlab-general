@@ -35,7 +35,7 @@ headings = c{1}(2:end);
 if nargin>1
     mech.x = dat;
     mech.head = headings;
-    [pathstr,name,ext] = fileparts(filename);
+    [pathstr,~,~] = fileparts(filename);
     save(fullfile(pathstr,savematfile),'mech');
 else
     mech.x = dat;

@@ -26,7 +26,7 @@ function [ax,h1,h2] = customPlotyy(x1,y1,x2,y2,options)
 % h2: the handle for the second dataset
 
 [ax,h1,h2] = plotyy(x1,y1,x2,y2);
-
+linkaxes(ax,'x')
 if nargin>4
     if isfield(options,'color1')
         set(h1,'color',options.color1)
@@ -41,6 +41,9 @@ if nargin>4
     end
     if isfield(options,'ylim2')
         set(ax(2),'ylim',options.ylim2)
+    end
+    if isfield(options,'xlim')
+        xlim(options.xlim)
     end
     if isfield(options,'ygrid1')
         if options.ygrid1
