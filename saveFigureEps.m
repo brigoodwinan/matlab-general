@@ -14,4 +14,11 @@ function saveFigureEps(fig,width,height,filename)
 fig.PaperUnits = 'inches';
 fig.PaperPosition = [0 0 width height];
 fig.PaperPositionMode = 'manual';
+
+ax = findall(fig,'type','axes');
+
+for k = 1:size(ax)
+    ax(k).FontName = 'Arial';
+    ax(k).FontSize = 10;
+end
 print(filename,'-depsc2')
