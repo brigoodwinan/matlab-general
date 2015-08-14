@@ -3,6 +3,8 @@ function varargout = plotCollectionOfSignalsInOneWindow(s,t,varargin)
 % plotCollectionOfSignalsInOneWindow(s1,t1,s2,t2,...,sN,tN)
 % [scaling1,scaling2,...] = plotCollectionOfSignalsInOneWindow(s1,t1,s2,t2,...,sN,tN)
 %
+% % plotCollectionOfSignalsInOneWindow(ax,s1,t1,s2,t2,...,sN,tN)
+%
 % Brian Goodwin, 2015-04-02
 %
 % Takes a collection of signals and plots them all in the same plot window.
@@ -35,6 +37,20 @@ function varargout = plotCollectionOfSignalsInOneWindow(s,t,varargin)
 % IMPORTANT:
 % - If any signal is all zeros (e.g., x = [1,2,3] y = zeros(3,1)), they
 %     will displayed as red circles.
+numinputs = nargin;
+if ishandle(s)
+    if strcmp(get(s,'type'),'axes')
+        ax = s;
+        s = t;
+        t = varargin{1};
+        varargin = varargin(2:end);
+        numinputs = numinputs-1;
+    else
+        error('Handle provided is not a handle of type "axes".')
+    end
+else
+    ax = gca;
+end
 
 if ~iscell(s)
     [n,m] = size(s);
@@ -52,10 +68,10 @@ meanMax = rms(meanMax);
 separateSigBy = meanMax*2.1;
 
 sepi = separateSigBy;
-if nargin<2
+if numinputs<2
     for k = 1:length(s)
         sepi = sepi-separateSigBy;
-        plot(s{k}+sepi,'k')
+        plot(ax,s{k}+sepi,'k')
         hold on
     end
     hold off
@@ -63,14 +79,14 @@ else
     if iscell(t)
         for k = 1:length(s)
             sepi = sepi-separateSigBy;
-            plot(t{k},s{k}+sepi,'k')
+            plot(ax,t{k},s{k}+sepi,'k')
             hold on
         end
         hold off
     else
         for k = 1:length(s)
             sepi = sepi-separateSigBy;
-            plot(t,s{k}+sepi,'k')
+            plot(ax,t,s{k}+sepi,'k')
             hold on
         end
         hold off
