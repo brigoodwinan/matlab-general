@@ -1,4 +1,4 @@
-function readWIAManCSVFile(filename,savematfile)
+function mech = readWIAManCSVFile(filename,savematfile)
 %
 % dat = readWIAManCSVFile(filename)
 % [dat,headings] = readWIAManCSVFile(filename)
@@ -11,35 +11,45 @@ function readWIAManCSVFile(filename,savematfile)
 %
 % INPUTS:
 % filename: full path (string) of filename (just drag and drop the filename
-%     into the workspace. 
+%     into the workspace.
 % savematfile: name of *mat file to be saved. Automatically saved to the
 %     folder it came from.
 %
 % OUTPUTS:
-% dat: data output. The first column is "time"
-% headings:
-
-m = csvread(filename,8,1);
-
-dat = m(1:end-4,:);
-[nlen,numheads] = size(dat);
-m = csvread(filename,8,0,[8,0,8+nlen-1,0]);
-dat = cat(2,m,dat);
+% mech: structure where *.x is the data and *.head are the headers.
 
 fid = fopen(filename,'r');
 fgetl(fid);
 fgetl(fid);
-c = textscan(fid,'%s',numheads+1,'Delimiter',',');
-headings = c{1}(2:end);
+headings = fgetl(fid);
+headings = textscan(headings,'%s','Delimiter',',');
+headings = headings{1}(2:end);
+n = length(headings)+1;
+dat = textscan(fid,'%f','Headerlines',5,'Delimiter',',');
+m = numel(dat{1})/n;
+dat = reshape(dat{1},n,m).';
+fclose(fid);
+
+mech.x = dat;
+mech.head = headings;
+uniqheads = unique(mech.head);
+n = length(uniqheads);
+if length(mech.head)>n
+    for k = 1:n
+        chg = findCellsThatHaveMatchingString(mech.head,uniqheads{k});
+        m = length(chg);
+        if m>1
+            for i = 1:m
+                mech.head{chg(i)} = cat(2,mech.head{chg(i)},' - ',num2str(i));
+            end
+        end
+    end
+end
 
 if nargin>1
-    mech.x = dat;
-    mech.head = headings;
     [pathstr,~,~] = fileparts(filename);
     save(fullfile(pathstr,savematfile),'mech');
 else
-    mech.x = dat;
-    mech.head = headings;
     [pathstr,name,ext] = fileparts(filename);
     save(fullfile(pathstr,[name(1:4),'data.mat']),'mech');
 end
