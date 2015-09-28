@@ -1,4 +1,4 @@
-function mech = readWIAManCSVFile(filename,savematfile)
+function mech = readCSVWithOneHeader(filename,savematfile)
 %
 % dat = readWIAManCSVFile(filename)
 % [dat,headings] = readWIAManCSVFile(filename)
@@ -19,19 +19,11 @@ function mech = readWIAManCSVFile(filename,savematfile)
 % mech: structure where *.x is the data and *.head are the headers.
 
 fid = fopen(filename,'r');
-fgetl(fid);
-fgetl(fid);
 headings = fgetl(fid);
 headings = textscan(headings,'%s','Delimiter',',');
 headings = headings{1}(2:end);
 n = length(headings)+1;
-directs = fgetl(fid);
-directs = textscan(directs,'%s','Delimiter',',');
-directs = directs{1}(2:end);
-for k = 1:length(headings)
-    headings{k} = cat(2,headings{k},' ',directs{k});
-end
-dat = textscan(fid,'%f','Headerlines',4,'Delimiter',',');
+dat = textscan(fid,'%f','Delimiter',',');
 m = numel(dat{1})/n;
 dat = reshape(dat{1},n,m).';
 fclose(fid);
