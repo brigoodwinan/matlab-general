@@ -28,10 +28,8 @@ fig.PaperPositionMode = 'manual';
 fig.PaperSize = [width,height];
 
 if ~isempty(varargin)
-    for k = 1:length(varargin)
-        if strcmpi(varargin{k},'units')
-            fig.PaperUnits = varargin{k+1};
-        end
+    if any(findCellsThatHaveMatchingStringLogical(varargin,'units'))
+        fig.PaperUnits = varargin{findCellsThatHaveMatchingString(varargin,'units')+1};
     end
 end
 
@@ -48,7 +46,9 @@ end
 if ~isempty(varargin)
     if any(findCellsThatHaveMatchingStringLogical(varargin,'pdf'))
         print(filename,'-dpdf')
+    else
+        print(filename,'-depsc2')
     end
 else
-    print(filename,'-depsc2') 
+    print(filename,'-depsc2')
 end
