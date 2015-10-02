@@ -66,4 +66,16 @@ if nargin>4
     if isfield(options,'ytick2')
         set(ax(1),'ytick',options.ytick2);
     end
+    if isfield(options,'ylabel1')
+        ax(1).YLabel.String = options.ylabel1;
+    end
+    if isfield(options,'ylabel2')
+        ax(2).YLabel.String = options.ylabel2;
+    end
+    
+    % make sure the following if statement is the last one:
+    if isfield(options,'xlabel')
+        ax = gca;
+        ax.XLabel.String = options.xlabel;
+    end
 end
