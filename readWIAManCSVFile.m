@@ -28,7 +28,7 @@ n = length(headings)+1;
 directs = fgetl(fid);
 directs = textscan(directs,'%s','Delimiter',',');
 directs = directs{1}(2:end);
-for k = 1:length(headings)
+for k = 1:length(directs)
     headings{k} = cat(2,headings{k},' ',directs{k});
 end
 dat = textscan(fid,'%f','Headerlines',4,'Delimiter',',');
