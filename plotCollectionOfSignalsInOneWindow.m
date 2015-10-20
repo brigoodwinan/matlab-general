@@ -1,7 +1,7 @@
 function varargout = plotCollectionOfSignalsInOneWindow(s,t,varargin)
 % plotCollectionOfSignalsInOneWindow(s,t)
 % plotCollectionOfSignalsInOneWindow(s1,t1,s2,t2,...,sN,tN)
-% [scaling1,scaling2,...] = plotCollectionOfSignalsInOneWindow(s1,t1,s2,t2,...,sN,tN)
+% [min,max,scaling1,scaling2,...] = plotCollectionOfSignalsInOneWindow(s1,t1,s2,t2,...,sN,tN)
 %
 % % plotCollectionOfSignalsInOneWindow(ax,s1,t1,s2,t2,...,sN,tN)
 %
@@ -27,7 +27,9 @@ function varargout = plotCollectionOfSignalsInOneWindow(s,t,varargin)
 %
 % OUTPUTS:
 % scalings: (optional) the scale factors used to plot the secondary signals (s2 and
-%         onward) within the plotting window
+%         onward) within the plotting window. The first two variables in
+%         this output array are the min and max of the plotting window,
+%         i.e., [ min, max, scaling1, scaling2, scaling3, ...]
 %
 % NOTE:
 % - Currently, the signals in s1...N are scaled to fit in the bounds of
@@ -93,10 +95,20 @@ else
     end
 end
 
+mxAbs = meanMax;
+mnAbs = -(ns-1)*separateSigBy-meanMax;
+
+varargout = cell(nargout,1);
+if nargout>1
+    varargout{1} = mnAbs;
+    varargout{2} = mxAbs;
+elseif nargout==1
+    varargout{1} = mnAbs;
+end
+
 if ~isempty(varargin)
     hold on
-    mxAbs = meanMax;
-    mnAbs = -(ns-1)*separateSigBy-meanMax;
+    
     
     ns = length(varargin)/2;
     if rem(ns*2,2)
@@ -110,8 +122,8 @@ if ~isempty(varargin)
     end
     newMax = rms(newMax);
     %}
-    i = 0;
-    varargout = cell(nargout,1);
+    i = 3;
+    
     for k = 1:2:ns*2
         i = i+1;
         numSigs = length(varargin{k});
@@ -122,7 +134,7 @@ if ~isempty(varargin)
         
         newMax = 0;
         for kk = 1:numSigs
-            newMax = max(max(max(abs(varargin{k}{kk}))),newMax);
+            newMax = max(max(abs(varargin{k}{kk}(:))),newMax);
         end
         redCircles = false;
         if newMax==0
@@ -132,7 +144,7 @@ if ~isempty(varargin)
             newMax = 1/newMax*newSpacing/2;
         end
         
-        if nargout>0
+        if nargout>2
             varargout{i} = newMax;
         end
         % newMax = 1/max(max(abs(varargin{k}{kk})))*newSpacing/2;

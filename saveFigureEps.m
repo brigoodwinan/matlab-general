@@ -25,7 +25,7 @@ function saveFigureEps(fig,width,height,filename,varargin)
 fig.PaperUnits = 'inches';
 
 fig.PaperPositionMode = 'manual';
-fig.PaperSize = [width,height];
+% fig.PaperSize = [width,height];
 
 if ~isempty(varargin)
     if any(findCellsThatHaveMatchingStringLogical(varargin,'units'))

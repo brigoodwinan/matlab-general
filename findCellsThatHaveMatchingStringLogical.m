@@ -17,9 +17,17 @@ function out = findCellsThatHaveMatchingStringLogical(inCell,varargin)
 %      strings.
 
 [n,m] = size(inCell);
-out = true(n,m);
+out = false(n,m);
+
+tmp = find(cellfun(@ischar,inCell));
+inCell = inCell(tmp);
+tmpout = ~out(tmp);
+
 for k = 1:length(varargin)
-    out = ~cellfun(@isempty,strfind(inCell,varargin{k})) & out;
+    tmpout = ~cellfun(@isempty,strfind(inCell,varargin{k})) & tmpout;
 end
+
+out(tmp(tmpout)) = true;
+
 return
 end

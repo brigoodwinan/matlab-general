@@ -5,6 +5,7 @@ function ax = makeTimeFreqPlot(varargin)
 % makeTimeFreqPlot(x1,x2,...,x3,s)
 % makeTimeFreqPlot(x1,x2,...,x3,scaling)
 % makeTimeFreqPlot(...,'frequency')
+% makeTimeFreqPlot(...,'colorbar')
 % ax = makeTimeFreqPlot(...)
 %
 % Brian Goodwin, 2015-03-05
@@ -20,12 +21,24 @@ function ax = makeTimeFreqPlot(varargin)
 % dt: time step or time vector (n-by-1)
 % scaling: (optional) 1-by-2 array of the values to scale the color bar to.
 %     This is the last input of the imagesc function (e.g., [0,0.5],
-%     default is [0,1].
-% string input: if string is 'frequency', then the output is
-%     time-frequency.
+%     default is [ 1.1*min(x1(:)) , 0.9*max(x1(:)) ].
+% string input: 
+%     'frequency': then the output is time-frequency.
+%     'colorbar': the colorbar is shown
+%     'colorbarLabel': The subsequent string must be the desired label for
+%          the colorbar. i.e. (...,'colorbarLabel','Time (ms)')
+%     'xlabel': the subsequent string must be the desired label for the
+%          x-axis of all the plots. Label will be placed on the bottom most
+%          plot.
 %
 % OUTPUTS:
 % ax: axis array of the subplot handles.
+
+if any(findCellsThatHaveMatchingStringLogical(varargin,'colorbar'))
+    setColorbarOn = true;
+else
+    setColorbarOn = false;
+end
 
 nin = length(varargin);
 a = zeros(nin,1);
@@ -64,8 +77,9 @@ else
 end
 
 if ~exist('scaling','var')
-    scaling = [0,1];
+    scaling = [min(varargin{1}(:))*1.1,max(varargin{1}(:))*0.9];
 end
+
 if exist('dt','var')
     if length(dt)>1
         t = dt;
@@ -82,15 +96,23 @@ tmpt = t;
 nplots = sum(indTF);
 axnum = 0;
 if exist('s','var')
-    nplots = nplots+1;
     axnum = 1;
+    if setColorbarOn
+        nplots = nplots*2+1;
+    else
+        nplots = nplots+1;
+    end
     ax(1) = subplot(nplots,1,1);
     plot(t,s,'k');
 end
 
 for k = 1:sum(indTF)
     axnum = axnum+1;
-    ax(axnum) = subplot(nplots,1,axnum);
+    if setColorbarOn
+        ax(axnum) = subplot(nplots,1,((axnum-2)*2+2):(axnum-2)*2+3); % yikes LOL
+    else
+        ax(axnum) = subplot(nplots,1,axnum);
+    end
     
     if isFreq
         f = linspace(0,1/2/dt,size(varargin{k},1));
@@ -109,5 +131,16 @@ for k = 1:sum(indTF)
     axis tight
     
     t = tmpt;
+    
+    if setColorbarOn
+        c = colorbar('southoutside');
+        if any(findCellsThatHaveMatchingStringLogical(varargin,'colorbarLabel'))
+            c.Label.String = varargin{findCellsThatHaveMatchingString(varargin,'colorbarLabel')+1};
+        end
+    end
+    
+    if any(findCellsThatHaveMatchingStringLogical(varargin,'xlabel'))
+        xlabel(varargin{findCellsThatHaveMatchingString(varargin,'xlabel')+1});
+    end
 end
 linkaxes(ax,'x');
