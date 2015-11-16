@@ -45,7 +45,11 @@ for k = iterations
     sxfm = cat(2,sxfm,s(:,keepValuesInWindow));
 end
 
-newInd = keepValuesInWindow(1):n-(windowSize-keepValuesInWindow(end));
-
-new_sig = sig(newInd);
-new_t = t(newInd);
+if nargout>1
+    newInd = keepValuesInWindow(1):n-(windowSize-keepValuesInWindow(end));
+    
+    new_sig = sig(newInd);
+    if nargout>2
+        new_t = t(newInd);
+    end
+end
