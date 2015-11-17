@@ -7,6 +7,8 @@ function out = findCellsThatHaveMatchingString(inCell,varargin)
 % string patters, this function will output the cell indices that contain
 % matches of all specified strings.
 %
+% Uses the regexpi() function.
+%
 % INPUT:
 % cellOfStrings: a cell structure where each cell contains a string. e.g.
 %      {'blah','blah';'blah','blah'}
@@ -24,7 +26,7 @@ inCell = inCell(tmp);
 tmpout = ~out(tmp);
 
 for k = 1:length(varargin)
-    tmpout = ~cellfun(@isempty,strfind(inCell,varargin{k})) & tmpout;
+    tmpout = ~cellfun(@isempty,regexpi(inCell,varargin{k})) & tmpout;
 end
 
 out(tmp(tmpout)) = true;
