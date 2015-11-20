@@ -35,7 +35,7 @@ keepf = true(length(out),1);
 
 % The following removes any folder names that contain any dots in their 
 % name. In other words, this removes '.','..','...','asd.adgg', etc.
-tmp = findCellsThatHaveMatchingString(out,'.');
+tmp = findCellsThatHaveMatchingString(out,'\.');
 keepf(tmp) = false;
 
 out = out(keepf);
