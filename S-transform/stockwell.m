@@ -9,7 +9,7 @@ function out = stockwell(h)
 % length (even or odd).
 %
 % Computes the stockwell transform using a "for loop" for the purpose of
-% conserving RAM (this is an alternative to "stran.m").
+% conserving RAM (this is an alternative to "stran.m").l
 %
 % INPUT:
 % in: n-by-1 vector array of time series data
