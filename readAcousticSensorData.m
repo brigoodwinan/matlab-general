@@ -22,7 +22,7 @@ function readAcousticSensorData(readFolderPath,saveFolderPath,delay)
 
 % load hpFIR_KaiserWindow_5MHzSample_10kHzStop.mat % Hd
 
-fid = dir(fullfile(readFolderPath,'*.isf'));
+fid = dir(fullfile(readFolderPath,'*CH*.isf'));
 
 fid = {fid.name};
 

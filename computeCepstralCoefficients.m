@@ -43,7 +43,7 @@ end
 
 if exist('t','var')
     [winSig,I] = divideSignalIntoWindows(inSig,windowSize,windowOverlap);
-    t = t(I(1,:));
+    t = t(I(fix(windowSize/2),:)); % changed from "1" to "fix(windowSize/2)" 2016-01-26 bdg
 else
     winSig = divideSignalIntoWindows(inSig,windowSize,windowOverlap);
 end

@@ -39,6 +39,7 @@ function varargout = plotCollectionOfSignalsInOneWindow(s,t,varargin)
 % IMPORTANT:
 % - If any signal is all zeros (e.g., x = [1,2,3] y = zeros(3,1)), they
 %     will displayed as red circles.
+
 numinputs = nargin;
 if ishandle(s)
     if strcmp(get(s,'type'),'axes')
