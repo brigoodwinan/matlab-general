@@ -34,15 +34,13 @@ N = length(inSig);
 
 if overlap>=n
     error('Window overlap must be less than the window size.')
-end
-if overlap<1
-    if overlap<0
-        error('Window overlap must be a positive value.')
-    end
+elseif overlap<0
+    error('Window overlap must be a positive value.')
+elseif overlap<1
     overlap = fix(n*overlap);
 end
 
-nit = floor((N-overlap)./(n-overlap));
+nit = fix((N-overlap)./(n-overlap));
 N = nit*(n-overlap)+overlap;
 
 iterations = round((0:nit-1)*(n-overlap)+1);
