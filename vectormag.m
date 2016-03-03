@@ -16,6 +16,8 @@ function V = vectormag(v,vv)
 % OUTPUTS:
 % V: n-by-1 column vector of the magnitude (or distance when given p1 and
 %       p2).
+%
+% Note: function also works for N-dimensional data.
 
 if nargin==1
     V = sqrt(sum(v.^2,2));
