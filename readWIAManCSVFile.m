@@ -17,6 +17,11 @@ function mech = readWIAManCSVFile(filename,savematfile)
 %
 % OUTPUTS:
 % mech: structure where *.x is the data and *.head are the headers.
+%
+%
+% EDITS:
+% 2016-02-18: changed file so that 'time' is included in the header. At
+%     first the "time" header was simply neglected.
 
 fid = fopen(filename,'r');
 fgetl(fid);
@@ -37,7 +42,7 @@ dat = reshape(dat{1},n,m).';
 fclose(fid);
 
 mech.x = dat;
-mech.head = headings;
+mech.head = ['Time';headings];
 uniqheads = unique(mech.head);
 n = length(uniqheads);
 if length(mech.head)>n
@@ -53,8 +58,13 @@ if length(mech.head)>n
 end
 
 if nargin>1
-    [pathstr,~,~] = fileparts(filename);
-    save(fullfile(pathstr,savematfile),'mech');
+    pathstr = fileparts(savematfile);
+    if isempty(pathstr)
+        pathstr = fileparts(filename);
+        save(fullfile(pathstr,savematfile),'mech');
+    else
+        save(fullfile(pathstr,savematfile),'mech');
+    end
 else
     [pathstr,name,ext] = fileparts(filename);
     save(fullfile(pathstr,[name(1:4),'data.mat']),'mech');

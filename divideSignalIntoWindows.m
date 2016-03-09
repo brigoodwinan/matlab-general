@@ -30,34 +30,44 @@ function [out,I] = divideSignalIntoWindows(inSig,n,overlap)
 % overlap = .75;
 %
 
-N = length(inSig);
+Nsig = uint32(length(inSig));
 
 if overlap>=n
     error('Window overlap must be less than the window size.')
+elseif overlap<0
+    error('Window overlap must be a positive value.')
+elseif overlap<1
+    overlap = fix(n*overlap)-1;
 end
-if overlap<1
-    if overlap<0
-        error('Window overlap must be a positive value.')
+
+overlap = uint32(overlap);
+n = uint32(n);
+
+nWins = (Nsig-overlap)./(n-overlap)-1;
+
+N = nWins*(n-overlap)+overlap;
+out = zeros(n,nWins);
+
+% Optimize efficiency of the script
+if nWins<n
+    iterations = (0:nWins-1)*(n-overlap)+1;
+    for k = 1:nWins
+        out(:,k) = inSig(iterations(k):n+iterations(k)-1);
     end
-    overlap = fix(n*overlap);
-end
-
-nit = floor((N-overlap)./(n-overlap));
-N = nit*(n-overlap)+overlap;
-
-iterations = round((0:nit-1)*(n-overlap)+1);
-out = [];
-for k = iterations
-    out = cat(2,out,inSig(k:n+k-1));
+else
+    gap = n-overlap;
+    for k = 1:n
+        out(k,:) = inSig(k:gap:nWins*gap+(k-1));
+    end
 end
 
 if nargout>1
     if N<=intmax('uint16')
-        I = uint16(1:N).';
+        I = uint16(1:Nsig).';
     elseif N<=intmax('uint32')
-        I = uint32(1:N).';
+        I = uint32(1:Nsig).';
     else
-        I = uint64(1:N).';
+        I = uint64(1:Nsig).';
     end
     I = divideSignalIntoWindows(I,n,overlap);
 end
