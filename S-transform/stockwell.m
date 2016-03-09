@@ -45,6 +45,7 @@ out = cell2mat(out);
 return
 end
 
+%% Stockwell computation for parfor loop
 function out = stockwell_subfun(f,n,hft)
 w = exp(-2*(pi.*f./f(n)).^2);
 tmp = circshift(hft,n-1).';
