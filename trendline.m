@@ -9,7 +9,10 @@ function [P,rsq] = trendline(x,y,order)
 %
 % P values could normally be obtained via P = polyfit(x,y,1);
 %
-% Trendline can be plotted via yfit = polyval(P,xmin:xmax)
+% Trendline can be plotted via:
+% yfit = polyval(P,[xmin,xmax]);
+% plot([xmin,xmax],yfit,'k');
+% 
 
 if nargin<3
     order = 1;
