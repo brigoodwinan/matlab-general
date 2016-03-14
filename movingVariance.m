@@ -12,3 +12,14 @@ function out = movingVariance(in,lag)
 
 mu = filter(ones(lag,1)./lag,1,in);
 out = filter(ones(lag,1)./lag,1,(in-mu).^2);
+
+[m,n] = size(out);
+if m>1 && n>1 
+    if m>n
+        out(1:lag*2,:) = nan;
+    else
+        out(:,1:lag*2) = nan;
+    end
+else
+    out(1:lag*2) = nan;
+end
