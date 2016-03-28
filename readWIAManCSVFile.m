@@ -58,12 +58,12 @@ if length(mech.head)>n
 end
 
 if nargin>1
-    pathstr = fileparts(savematfile);
+    [pathstr,strname] = fileparts(savematfile);
     if isempty(pathstr)
         pathstr = fileparts(filename);
         save(fullfile(pathstr,savematfile),'mech');
     else
-        save(fullfile(pathstr,savematfile),'mech');
+        save(fullfile(pathstr,strname),'mech');
     end
 else
     [pathstr,name,ext] = fileparts(filename);
