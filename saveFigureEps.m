@@ -23,6 +23,7 @@ function saveFigureEps(fig,width,height,filename,varargin)
 % set(figHandle,'PaperUnits','...'). The default is 'inches'.
 
 fig.PaperUnits = 'inches';
+fig.Renderer = 'painters';
 
 fig.PaperPositionMode = 'manual';
 % fig.PaperSize = [width,height];
