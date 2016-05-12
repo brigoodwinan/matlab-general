@@ -28,6 +28,8 @@ fig.Renderer = 'painters';
 fig.PaperPositionMode = 'manual';
 % fig.PaperSize = [width,height];
 
+fig.Renderer = 'painters';
+
 if ~isempty(varargin)
     if any(findCellsThatHaveMatchingStringLogical(varargin,'units'))
         fig.PaperUnits = varargin{findCellsThatHaveMatchingString(varargin,'units')+1};
