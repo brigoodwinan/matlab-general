@@ -21,6 +21,8 @@ function saveFigureEps(fig,width,height,filename,varargin)
 % If 'units' is specialized, the next string must be a string with the type
 % of unit desired. The string must be in accordance with
 % set(figHandle,'PaperUnits','...'). The default is 'inches'.
+%
+% Can also 
 
 fig.PaperUnits = 'inches';
 fig.Renderer = 'painters';
@@ -42,7 +44,7 @@ set(fig,'PaperSize',[width,height]);
 ax = findall(fig,'type','axes');
 
 for k = 1:size(ax)
-    ax(k).FontName = 'Arial';
+    ax(k).FontName = 'Helvitica';
     ax(k).FontSize = 10;
 end
 
