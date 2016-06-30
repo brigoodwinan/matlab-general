@@ -45,16 +45,24 @@ if ~isempty(varargin)
         for k = 1:size(ax)
             ax(k).FontName = varargin{findCellsThatHaveMatchingString(varargin,'fontname')+1};
         end
+    else
+        for k = 1:size(ax)
+            ax(k).FontName = 'Helvetica';
+        end
     end
     
     if any(findCellsThatHaveMatchingStringLogical(varargin,'fontsize'))
         for k = 1:size(ax)
             ax(k).FontSize = varargin{findCellsThatHaveMatchingString(varargin,'fontsize')+1};
         end
+    else
+        for k = 1:size(ax)
+            ax(k).FontSize = 10;
+        end
     end
 else
     for k = 1:size(ax)
-        ax(k).FontName = 'Helvitica';
+        ax(k).FontName = 'Helvetica';
         ax(k).FontSize = 10;
     end
 end
@@ -62,9 +70,6 @@ end
 fig.PaperPosition = [0 0 width height];
 set(fig,'PaperSize',[width,height]);
 % fig.PaperSize = [width,height];
-
-
-
 
 if ~isempty(varargin)
     if any(findCellsThatHaveMatchingStringLogical(varargin,'pdf'))
