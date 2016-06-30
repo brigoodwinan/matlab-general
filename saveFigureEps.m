@@ -12,8 +12,12 @@ function saveFigureEps(fig,width,height,filename,varargin)
 % height: height of the image in inches
 %
 % Options include:
-%   'units'
-%   'pdf'
+%   'units' - subsequent entry must be a string indicating units (e.g.,
+%       'centimeters').
+%   'pdf' - if this string is present, the file is saved as a pdf.
+%   'fontname' - subsequent entry must be a string indicating desired font.
+%   'fontsize' - subsequent entry must be a value indicating desired font
+%       size.
 %
 % If any string after filename is == 'pdf', then the image is saved as a
 % PDF instead of an eps.
@@ -22,7 +26,7 @@ function saveFigureEps(fig,width,height,filename,varargin)
 % of unit desired. The string must be in accordance with
 % set(figHandle,'PaperUnits','...'). The default is 'inches'.
 %
-% Can also 
+% Can also
 
 fig.PaperUnits = 'inches';
 fig.Renderer = 'painters';
@@ -31,22 +35,36 @@ fig.PaperPositionMode = 'manual';
 % fig.PaperSize = [width,height];
 
 fig.Renderer = 'painters';
-
+ax = findall(fig,'type','axes');
 if ~isempty(varargin)
     if any(findCellsThatHaveMatchingStringLogical(varargin,'units'))
         fig.PaperUnits = varargin{findCellsThatHaveMatchingString(varargin,'units')+1};
+    end
+    
+    if any(findCellsThatHaveMatchingStringLogical(varargin,'fontname'))
+        for k = 1:size(ax)
+            ax(k).FontName = varargin{findCellsThatHaveMatchingString(varargin,'fontname')+1};
+        end
+    end
+    
+    if any(findCellsThatHaveMatchingStringLogical(varargin,'fontsize'))
+        for k = 1:size(ax)
+            ax(k).FontSize = varargin{findCellsThatHaveMatchingString(varargin,'fontsize')+1};
+        end
+    end
+else
+    for k = 1:size(ax)
+        ax(k).FontName = 'Helvitica';
+        ax(k).FontSize = 10;
     end
 end
 
 fig.PaperPosition = [0 0 width height];
 set(fig,'PaperSize',[width,height]);
 % fig.PaperSize = [width,height];
-ax = findall(fig,'type','axes');
 
-for k = 1:size(ax)
-    ax(k).FontName = 'Helvitica';
-    ax(k).FontSize = 10;
-end
+
+
 
 if ~isempty(varargin)
     if any(findCellsThatHaveMatchingStringLogical(varargin,'pdf'))
