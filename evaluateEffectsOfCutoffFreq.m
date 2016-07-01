@@ -82,18 +82,16 @@ roc = roc./max(abs(roc));
 if nargin==4 && ~isempty(plotResult)
     if plotResult
         figure
-        plot(cutoffs,mn,'k','linewidth',1)
+        plot(cutoffs,mn,'k','linewidth',2)
         hold on
         xlabel('Cutoff Frequency')
-        ylabel('RMS Error')
+        ylabel('Normalized RMS Error')
         plot(cutoffs,roc,'r')
         legend('Mean RMS Error','RMS Error Rate of Change')
         plot(cutoffs,sRMS,'color',[zeros(1,3),0.2],'linewidth',0.5)
-        
-        
-        xlabel('Cutoff Frequency')
-        ylabel('RMS Rate of Change')
         ylim([min([sRMS(:);roc(:)]),1])
+        plot(cutoffs,mn,'k','linewidth',2)
+        hold off
     end
 end
 
