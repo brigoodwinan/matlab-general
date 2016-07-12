@@ -5,9 +5,7 @@ function readAcousticSensorData(readFolderPath,saveFolderPath,delay)
 %
 % Brian Goodwin, 2015-03-04
 %
-% Reads ISF files containing acoustic sensor data that has been sampled at
-% 5MHz. Data is sent through a simple butterworth highpass FIR Kaiser
-% windowed. Stop band is 10kHz and Pass band is 25 kHz.
+% 2016-07-12 -- v2
 %
 % File is saved under the name "acousticEmissionSensorData.mat"
 %
@@ -20,8 +18,6 @@ function readAcousticSensorData(readFolderPath,saveFolderPath,delay)
 % "delay" variable is the set amount that aet needs to be added to "aet".
 % The "delay" variable should have units of [ms] (milliseconds).
 
-% load hpFIR_KaiserWindow_5MHzSample_10kHzStop.mat % Hd
-
 fid = dir(fullfile(readFolderPath,'*CH*.isf'));
 
 fid = {fid.name};
@@ -31,14 +27,8 @@ ae = cell(1,nchan);
 
 for k = 1:nchan
     [out,~] = isfread3(fullfile(readFolderPath,fid{k}));
-    %     ae{k} = filtfilt(Hd.Numerator,1,out.y);
     ae{k} = out.y;
     
-    %     figure
-    %     plot(out.y,'k')
-    %     hold on
-    %     plot(ae{k},'r')
-    %     hold off
 end
 if nargin<3
     aet = out.x;
