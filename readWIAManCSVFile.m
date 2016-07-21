@@ -1,8 +1,7 @@
 function mech = readWIAManCSVFile(filename,savematfile)
 %
-% dat = readWIAManCSVFile(filename)
-% [dat,headings] = readWIAManCSVFile(filename)
-% [dat,headings] = readWIAManCSVFile(filename,savematfile)
+% mech = readWIAManCSVFile(filename)
+% mech = readWIAManCSVFile(filename,savematfile)
 %
 % Brian Goodwin, 2015-02-19
 %
@@ -14,6 +13,8 @@ function mech = readWIAManCSVFile(filename,savematfile)
 %     into the workspace.
 % savematfile: name of *mat file to be saved. Automatically saved to the
 %     folder it came from.
+%     If savematfile == 0, then no file is saved.
+%     i.e., >> dat = readWIAManCSVFile('filename',false);
 %
 % OUTPUTS:
 % mech: structure where *.x is the data and *.head are the headers.
@@ -54,6 +55,12 @@ if length(mech.head)>n
                 mech.head{chg(i)} = cat(2,mech.head{chg(i)},' - ',num2str(i));
             end
         end
+    end
+end
+
+if nargin>1
+    if ~logical(savematfile)
+        return
     end
 end
 
