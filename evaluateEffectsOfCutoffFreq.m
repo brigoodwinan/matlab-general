@@ -19,7 +19,10 @@ function [sRMS,mn,roc,cutoffs] = evaluateEffectsOfCutoffFreq(inSig,DT,cutoffs,pl
 % cutoffs: (optional) list (array or vector) of cutoff frequencies. Leave 
 %     empty for default. (default = linspace(0.01*(FS/2),0.5*(FS/2),100))
 % plotResult: (optional) If evaluated as true, the result is automatically 
-%     plotted. If false, no plot is generated. (default = false)
+%     plotted. If false, no plot is generated. Note that the result will be
+%     plotted in the active figure window. For example, it is best to call
+%     >> figure before running function with plot generation. (default = 
+%     false) 
 %
 % OUTPUS:
 % mn: normalized mean curve of RMS error over all signals
@@ -40,6 +43,7 @@ evaluateEffectsOfCutoffFreq(s,[],[],1);
 if nargin<2 || isempty(DT)
     DT = 0.5;
 end
+
 FS = 1/DT;
 
 % cutoffs
@@ -52,7 +56,7 @@ b = zeros(n,3);
 a = b;
 
 for k = 1:n
-    [b(k,:),a(k,:)] = butter(2,cutoffs(k)/(FS/2)); % 900 Hz filter
+    [b(k,:),a(k,:)] = butter(2,cutoffs(k)/(FS/2));
 end
 
 if iscell(inSig)
@@ -81,7 +85,7 @@ roc = roc./max(abs(roc));
 
 if nargin==4 && ~isempty(plotResult)
     if plotResult
-        figure
+        % figure
         plot(cutoffs,mn,'k','linewidth',2)
         hold on
         xlabel('Cutoff Frequency')
