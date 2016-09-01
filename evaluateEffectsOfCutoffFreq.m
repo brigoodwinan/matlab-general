@@ -29,7 +29,12 @@ function [sRMS,mn,roc,cutoffs] = evaluateEffectsOfCutoffFreq(inSig,DT,cutoffs,pl
 % roc: normalized rate of change of the mn curve as cutoff frequency is 
 %     decreased.
 % cutoffs: output of cutoff frequencies used in computing RMS error.
-% sRMS: 
+% sRMS: RMS of the filtered signal compared to the original unfiltered
+% signal.
+%
+% e.g.,
+% figure
+% evaluateEffectsOfCutoffFreq(s,DT,cutoffs,1);
 
 % Use the following for Debugging...
 %{
