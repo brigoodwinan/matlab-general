@@ -9,7 +9,7 @@ function c = get_color_for_colorbar(value)
 % n-by-3
 %
 % plot(x,y,'.','color',get_color_for_colorbar(value))
-
+value(value>1) = 1;
 value = ceil(value*256);
 value(value<1) = 1;
 
