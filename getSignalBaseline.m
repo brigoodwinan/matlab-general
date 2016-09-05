@@ -23,5 +23,5 @@ out = zeros(1,m);
 for k = 1:m
     [n,edges] = histcounts(in(:,k));
     [~,I] = max(n);
-    out(k) = mean(in(:,k)>edges(I) & in(:,k)<edges(I+1));
+    out(k) = mean(in(in(:,k)>edges(I) & in(:,k)<edges(I+1),k));
 end
