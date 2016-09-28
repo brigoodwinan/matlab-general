@@ -13,5 +13,6 @@ if ~isPoolOpen
 end
 
 S = stockwell(h);
+S = abs(S);
 
 makeTimeFreqPlot(S,1/Fs,h)
