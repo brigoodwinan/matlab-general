@@ -1,4 +1,4 @@
-% stran_test.m
+% stockwell_example.m
 %
 % Brian Goodwin
 %
