@@ -116,7 +116,7 @@ end
 
 sRMS = bsxfun(@rdivide,sRMS,sRMS(1,:));
 mn = mean(sRMS,2);
-roc = flipud(diff(flipud(mn)));
+roc = flipud(diff(flipud(mn)))./flipud(diff(flipud(-cutoffs')));
 roc(n) = roc(n-1);
 roc = roc./max(abs(roc));
 
