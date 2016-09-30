@@ -77,11 +77,13 @@ if iscell(inSig)
     if isPoolOpen
         sRMS = cell(1,N);
         for k = 1:N
-            sRMS{k} = zeros(n,size(inSig{k},2));
+            tmp = zeros(n,size(inSig{k},2));
+            insig = {k};
             parfor j = 1:n
-                xf = filtfilt(b(j,:),a(j,:),inSig{k});
-                sRMS{k}(j,:) = sqrt(mean((xf-inSig{k}).^2));
+                xf = filtfilt(b(j,:),a(j,:),insig);
+                tmp(j,:) = sqrt(mean((xf-insig).^2));
             end
+            sRMS{k} = tmp;
         end
     else
         m = cellfun('size',inSig,2); % number of signals in each cell.
