@@ -43,7 +43,7 @@ function [sRMS,mn,roc,cutoffs] = evaluateEffectsOfCutoffFreq(inSig,DT,cutoffs,pl
 % s = randn(1000,20);
 s = cell(10,2);
 for k = 1:numel(s)
-    s{k} = randn(1000,ceil(rand*4));
+    s{k} = randn(100000,ceil(rand*4));
 end
 sRMS = evaluateEffectsOfCutoffFreq(s);
 % or
@@ -70,22 +70,23 @@ for k = 1:n
     [b(k,:),a(k,:)] = butter(2,cutoffs(k)/(FS/2));
 end
 
-if iscell(inSig)
+
+if iscell(inSig) % If the input is a cell:
     N = numel(inSig);
     
-    %%% THIS NEEDS TO BE CORRECTED... CODE ISN'T WORKING.... %%%
-    if isPoolOpen
+    if isPoolOpen % If parallel pool is open, use it.
         sRMS = cell(1,N);
         for k = 1:N
             tmp = zeros(n,size(inSig{k},2));
-            insig = {k};
+            insig = inSig{k};
             parfor j = 1:n
                 xf = filtfilt(b(j,:),a(j,:),insig);
                 tmp(j,:) = sqrt(mean((xf-insig).^2));
             end
             sRMS{k} = tmp;
         end
-    else
+        sRMS = cell2mat(sRMS);
+    else % if parallel pool is not open, run classic for loop.
         m = cellfun('size',inSig,2); % number of signals in each cell.
         msum = zeros(N+1,1);
         msum(2:N+1) = cumsum(m(:));
@@ -97,11 +98,19 @@ if iscell(inSig)
             end
         end
     end
-else
+    
+else % If the input signal is not a cell:
     sRMS = zeros(n,size(inSig,2));
-    for j = 1:n
-        xf = filtfilt(b(j,:),a(j,:),inSig);
-        sRMS(j,:) = sqrt(mean((xf-inSig).^2));
+    if isPoolOpen % If parallel pool is open, use it.
+        parfor j = 1:n
+            xf = filtfilt(b(j,:),a(j,:),inSig);
+            sRMS(j,:) = sqrt(mean((xf-inSig).^2));
+        end
+    else % If parallel pool is not open, run classic for loop.
+        for j = 1:n
+            xf = filtfilt(b(j,:),a(j,:),inSig);
+            sRMS(j,:) = sqrt(mean((xf-inSig).^2));
+        end
     end
 end
 
