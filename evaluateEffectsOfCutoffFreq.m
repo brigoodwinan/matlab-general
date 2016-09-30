@@ -13,6 +13,8 @@ function [sRMS,mn,roc,cutoffs] = evaluateEffectsOfCutoffFreq(inSig,DT,cutoffs,pl
 % INPUTS:
 % inSig: n-by-m column vector of signal(s) where m is equal to the number
 %     of signals and n is the number of samples.
+%     inSig can also be a cell, which can be desirable if the signals in
+%     question have different lengths.
 % DT: (optional) timestep (FS = 1/DT; used for determing cutoff 
 %     frequencies). (default = 0.5 so that 100 cutoffs are tested between
 %     0.01 and 0.5)
@@ -38,7 +40,11 @@ function [sRMS,mn,roc,cutoffs] = evaluateEffectsOfCutoffFreq(inSig,DT,cutoffs,pl
 
 % Use the following for Debugging...
 %{
-s = randn(1000,20);
+% s = randn(1000,20);
+s = cell(10,2);
+for k = 1:numel(s)
+    s{k} = randn(1000,ceil(rand*4));
+end
 sRMS = evaluateEffectsOfCutoffFreq(s);
 % or
 evaluateEffectsOfCutoffFreq(s,[],[],1);
@@ -66,11 +72,27 @@ end
 
 if iscell(inSig)
     N = numel(inSig);
-    for k = 1:N
-        sRMS = zeros(n,N);
-        for j = 1:n
-            xf = filtfilt(b(j,:),a(j,:),inSig{k});
-            sRMS(j,k) = sqrt(mean((xf-inSig{k}).^2));
+    
+    %%% THIS NEEDS TO BE CORRECTED... CODE ISN'T WORKING.... %%%
+    if isPoolOpen
+        sRMS = cell(1,N);
+        for k = 1:N
+            sRMS{k} = zeros(n,size(inSig{k},2));
+            parfor j = 1:n
+                xf = filtfilt(b(j,:),a(j,:),inSig{k});
+                sRMS{k}(j,:) = sqrt(mean((xf-inSig{k}).^2));
+            end
+        end
+    else
+        m = cellfun('size',inSig,2); % number of signals in each cell.
+        msum = zeros(N+1,1);
+        msum(2:N+1) = cumsum(m(:));
+        sRMS = zeros(n,sum(m(:)));
+        for k = 1:N
+            for j = 1:n
+                xf = filtfilt(b(j,:),a(j,:),inSig{k});
+                sRMS(j,msum(k)+1:msum(k+1)) = sqrt(mean((xf-inSig{k}).^2));
+            end
         end
     end
 else
