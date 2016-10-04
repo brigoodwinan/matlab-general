@@ -24,7 +24,7 @@ IDs = unique(ids);
 % IDs = IDs(I);
 
 [~,edges] = histcounts(data,m);
-bincent = edges(1:m)+diff(edges);
+bincent = edges(1:m)+diff(edges)/2;
 n = numel(IDs);
 N = zeros(m,n);
 for k = 1:n
