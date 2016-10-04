@@ -1,5 +1,7 @@
-function makeHistogramOfGroupedData(data,ids,m)
+function [bincent,edges] = makeHistogramOfGroupedData(data,ids,m)
 % makeHistogramOfGroupedData(data,ids,m)
+% bin_centers = makeHistogramOfGroupedData(data,ids,m)
+% [bincent,edges] = makeHistogramOfGroupedData(data,ids,m)
 %
 % Plots a histogram of data where the bars are colored according to their
 % group ids.
