@@ -1,7 +1,8 @@
-function [bincent,edges] = makeHistogramOfGroupedData(data,ids,m)
+function [bincent,edges] = makeHistogramOfGroupedData(data,ids,m,varargin)
 % makeHistogramOfGroupedData(data,ids,m)
 % bin_centers = makeHistogramOfGroupedData(data,ids,m)
 % [bincent,edges] = makeHistogramOfGroupedData(data,ids,m)
+% [bincent,edges] = makeHistogramOfGroupedData(data,ids,m,'stacked')
 %
 % Plots a histogram of data where the bars are colored according to their
 % group ids.
@@ -32,4 +33,8 @@ for k = 1:n
 end
 
 % Use barPlot
-bar(bincent,N)
+if nargin>3
+    bar(bincent,N,'stacked')
+else
+    bar(bincent,N)
+end
