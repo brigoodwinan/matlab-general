@@ -30,18 +30,18 @@ for k = 1:nchan
     ae{k} = out.y;
     
 end
-if nargin>2
+if nargin<3
     aet = out.x;
 else
     aet = out.x+delay/1e3;
 end
 
 if nargin>1 && ~isempty(saveFolderPath)
-    save(fullfile(readFolderPath,'acousticEmissionSensorData.mat'),'ae','aet')
-    fid = fopen(fullfile(readFolderPath,'README_AEdata.txt'),'w');
-else
     save(fullfile(saveFolderPath,'acousticEmissionSensorData.mat'),'ae','aet')
     fid = fopen(fullfile(saveFolderPath,'README_AEdata.txt'),'w');
+else
+    save(fullfile(readFolderPath,'acousticEmissionSensorData.mat'),'ae','aet')
+    fid = fopen(fullfile(readFolderPath,'README_AEdata.txt'),'w');
 end
 
 
