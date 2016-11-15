@@ -15,11 +15,16 @@ function saveFigureEps(fig,width,height,filename,varargin)
 %   'units' - subsequent entry must be a string indicating units (e.g.,
 %       'centimeters').
 %   'pdf' - if this string is present, the file is saved as a pdf.
+%   'png' - if this string is present, the file is saved as a png.
+%       (optional) Indicate the dpi of the file by specifying in the
+%       following input using a string of the format '-r300' (e.g.).
+%       e.g., saveFigureEps(...,'png','-r300')
+%       (default = '-r500' if not included in inputs)
 %   'fontname' - subsequent entry must be a string indicating desired font.
 %   'fontsize' - subsequent entry must be a value indicating desired font
 %       size.
 %
-% If any string after filename is == 'pdf', then the image is saved as a
+% If any string after "filename" is == 'pdf', then the image is saved as a
 % PDF instead of an eps.
 %
 % If 'units' is specialized, the next string must be a string with the type
@@ -74,6 +79,16 @@ set(fig,'PaperSize',[width,height]);
 if ~isempty(varargin)
     if any(findCellsThatHaveMatchingStringLogical(varargin,'pdf'))
         print(filename,'-dpdf')
+    elseif any(findCellsThatHaveMatchingStringLogical(varargin,'png'))
+        ind = findCellsThatHaveMatchingString(varargin,'png');
+        res = '-r500';
+        if length(varargin)>ind
+            if strcmp(varargin{ind+1}(1:2),'-r')
+                res = varargin{ind+1};
+            end
+        end
+            
+        print(filename,'-dpng',res)
     else
         print(filename,'-depsc2')
     end
