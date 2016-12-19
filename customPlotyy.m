@@ -19,6 +19,8 @@ function [ax,h1,h2] = customPlotyy(x1,y1,x2,y2,options)
 %      ygrid1 & ygrid2: boolean (true or false) for turning grids on for
 %         y-axis 1 & 2.
 %      xgrid: boolean (true or false) for turning x-axis grids on
+%      ylabel1 & ylabel2: Y-labels
+%      xlabel: X-label
 %
 % OUTPUTS (optional):
 % ax: 1-by-2 axis array describing the first and second axes
