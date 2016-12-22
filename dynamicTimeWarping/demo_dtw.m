@@ -9,7 +9,7 @@
 
 clear;clc;close all;
 
-mex dtw_c.c;
+mex ~/Documents/MATLAB/matlab-general/dynamicTimeWarping/dtw_c.c;
 
 a=rand(500,3);
 b=rand(520,3);

@@ -1,3 +1,10 @@
+% d=dtw(s,t,w)
+% s: signal 1, size is ns*k, row for time, colume for channel 
+% t: signal 2, size is nt*k, row for time, colume for channel 
+% w: window parameter
+%      if s(i) is matched with t(j) then |i-j|<=w
+% d: resulting distance
+%
 % Copyright (C) 2013 Quan Wang <wangq10@rpi.edu>,
 % Signal Analysis and Machine Perception Laboratory,
 % Department of Electrical, Computer, and Systems Engineering,
