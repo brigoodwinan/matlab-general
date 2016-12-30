@@ -14,6 +14,9 @@ function I = computeTimeOffset(a)
 %
 % OUTPUTS:
 % I: the index (integer) at which t=0 should be.
+%
+% NOTE: Needs to inlcude new advancement where once it finds the t=0, to
+% then try to go backwards and find the nearest point that is closest to 0.
 
 % compute t-offset
 a = sum(a,2);
