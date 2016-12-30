@@ -20,4 +20,4 @@ a = sum(a,2);
 avar = log10(movingVariance(abs(a),200));
 logind = ~(isnan(avar)|isinf(avar));
 avar = avar-min(avar(logind))-std(avar(logind))/2;
-I = find(max(avar)*.3<avar,1,'first');
+I = find(max(avar)*.5<avar,1,'first');
