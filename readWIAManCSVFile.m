@@ -17,7 +17,8 @@ function mech = readWIAManCSVFile(filename,savematfile)
 %     i.e., >> dat = readWIAManCSVFile('filename',false);
 %
 % OUTPUTS:
-% mech: structure where *.x is the data and *.head are the headers.
+% mech: structure where *.x is the data, *.head are the headers, and *.ID 
+%     is the test ID number.
 %
 %
 % EDITS:
@@ -25,7 +26,10 @@ function mech = readWIAManCSVFile(filename,savematfile)
 %     first the "time" header was simply neglected.
 
 fid = fopen(filename,'r');
-fgetl(fid);
+one = fgetl(fid);
+k = regexpi(one,'WC07A','end');
+k = k(1);
+mech.ID = str2double(one(k+1:k+4));
 fgetl(fid);
 headings = fgetl(fid);
 headings = textscan(headings,'%s','Delimiter',',');
