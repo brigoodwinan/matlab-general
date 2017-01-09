@@ -6,6 +6,10 @@ function I = computeTimeOffset(a)
 % Computes the time offset given a response signal (typically
 % acceleration). The response signal can either be n-by-1 or n-by-3.
 %
+% While this should work for a variety of applications, this function has 
+% parameters that have been tested for using with acceleration responses
+% for the WIAMan head and neck program.
+%
 % Outputs the index at which t0 should be set so that 
 % t_new = t_original-t_original(I);
 %
@@ -19,8 +23,27 @@ function I = computeTimeOffset(a)
 % then try to go backwards and find the nearest point that is closest to 0.
 
 % compute t-offset
-a = sum(a,2);
-avar = log10(movingVariance(abs(a),200));
-logind = ~(isnan(avar)|isinf(avar));
-avar = avar-min(avar(logind))-std(avar(logind))/2;
-I = find(max(avar)*.5<avar,1,'first');
+n = size(a,1);
+n1 = fix(n/20);
+n2 = fix(n/40);
+a = bsxfun(@rdivide,a,sum(abs(a)));
+avar = log10(movingVariance(a,200));
+avar = bsxfun(@minus,avar,getSignalBaseline(avar(1:n1,:)));
+avar(isnan(avar)|isinf(avar)) = 0;
+avar = prod(avar,2);
+
+% Find first peak
+ma1 = ones(n1,1)./n1;
+ma2 = ones(n2,1)./n2;
+x = filtfilt(ma2,1,avar)-filtfilt(ma1,1,avar);
+x(x<=0) = 0;
+tmp = diff(x)<0;
+tmp = cat(1,tmp,false);
+x(~tmp) = 0;
+tmp = diff(x)>0;
+tmp = cat(1,false,tmp);
+x(~tmp) = 0;
+p1 = avar(find(x>0.7*max(x),1,'first'));
+
+% OUTPUT:
+I = find(p1*.33<avar,1,'first');
