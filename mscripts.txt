@@ -1,47 +1,26 @@
-# matlab-general
-
-Brian Goodwin 2017-01-10
-
-Many of my scripts use functions in this library. Below is a list of what I believe to be the most useful functions.
-
+Efield2V_nrnedge_junk.m
 SpinCalc.m
-	Allows conversion between Euler vectors, quaternions, rotation matrices, and euler angles.
-
+adaptive_mesh.m
 anglebtwnvectors.m
-	Given two 3D vectors, this computes the angle between them.
-
 bary2cart.m
-	Barycentric coordinate frame conversion to cartesian coordinates.
-
 calculate_element_center.m
-	Outputs the cartesian coordinates of the center of a triangle face element (i.e., a triangle).
-
 calculate_surface_area.m
-	Calculates surface area of a meshed surface made up of triangles using point (or vertices) and face fields.
-
 cart2arclength.m
-	Provide 2D or 3D points and it converts it to a 1D "line" where each new vector element is the distance from point 0 (or the first point). This simply uses the cumsum() matlab function.
-
 cart2bary.m
-	Converts from cartesian coordinates to barycentric coordinates.
-
+cat_txt_files.m
+cepstrumOneSidedAutocorr.m
+cepstrumOneSidedAutocorr_v1.m
+cepstrumWithWindow.m
 changeSigFigsInYaxis.m
-	Provide the figure handle to change the significant figures of values in the y-axis.
-
+check_tensor_via_hist.m
+coarsen_mesh.m
+coilOrient.m
 computeCepstralCoefficients.m
-	Compute Cepstral coefficients of a signal.
-
 computeReflectionCoefficients.m
-	Compute the reflection coefficients at each prescribed window in a signal.
-
 computeTimeOffset.m
-	Helpful in computing the time at which a dynamic response begins; i.e., this will give you the time at which t=0 could be defined. I used this in almost all of my analyses.
-
 convertVector2CellString.m
-	This is helpful for creating quick figure legends. Lets say you have response IDs like >> ids=293:295; Then you can use this function to provide quick legend labels: >> legend(convertVector2CellString(ids))
-
+count_lines.m
 crossSingletonExpansion.m
-	Performs a fast cross product for a signal (e.g., used for transforming the load cell moment response to a specified location given a vector). Typical use would be: >> M_xfm = M_LC
 customPlotyy.m
 debugging_mmse_xfms.m
 designDifferentiator.m
@@ -155,9 +134,3 @@ write_anisotropic_comsolinterpfun.m
 write_mtr_tetgen.m
 write_node_ele_tetgen.m
 xfm3d.m
-
-Matlab functions for general use.
-
-I am a biomedical engineer and I use matlab extensively - so I have a collection of functions that I have made over the past 8ish years. 
-
-Many of the functions may require matlab toolboxes like Iso2Mesh and NIFTI. The help display for each function should indicate the required toolboxes for a certain function to run.
