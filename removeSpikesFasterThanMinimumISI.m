@@ -8,6 +8,14 @@ function x = removeSpikesFasterThanMinimumISI(x,misi)
 %
 % This is also set to add addiitonal variabilty to the misi by increasing
 % it between 1x and 2x at random.
+% 
+% INPUTS:
+% x: logical array or single-column vector (n-by-1)
+% misi: minimum interspike interval in units of [samples]
+%
+% OUTPUTS:
+% x: the resulting logical array that no longer violates the minumium ISI
+%     as specified.
 
 f = find(x);
 isi = diff(f);
