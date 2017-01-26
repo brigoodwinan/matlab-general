@@ -34,13 +34,29 @@ function ax = makeTimeFreqPlot(varargin)
 % OUTPUTS:
 % ax: axis array of the subplot handles.
 
-if any(findCellsThatHaveMatchingStringLogical(varargin,'colorbar'))
-    setColorbarOn = true;
-else
-    setColorbarOn = false;
-end
+% Settings...
 
-nin = length(varargin);
+tmp = findCellsThatHaveMatchingStringLogical(varargin,'frequency');
+isFreq = any(tmp);
+varargin = varargin(~tmp);
+tmp = findCellsThatHaveMatchingStringLogical(varargin,'colorbarlabel');
+if any(tmp)
+    colorbarLabel = varargin{find(tmp)+1};
+    tmp(find(tmp)+1) = true;
+end
+varargin = varargin(~tmp);
+tmp = findCellsThatHaveMatchingStringLogical(varargin,'colorbar');
+setColorbarOn = any(tmp);
+varargin = varargin(~tmp);
+tmp = findCellsThatHaveMatchingStringLogical(varargin,'xlabel');
+if any(tmp)
+    xlab = varargin{find(tmp)+1};
+    tmp(find(tmp)+1) = true;
+end
+varargin = varargin(~tmp);
+
+nin = numel(varargin);
+
 a = zeros(nin,1);
 b = zeros(nin,1);
 for k = 1:nin
@@ -49,17 +65,11 @@ end
 
 indTF = a>1 & b>1;
 
-isFreq = false;
-
 for k = 1:nin
     tmp = varargin{k};
     tmpn = b(k)*a(k);
     
-    if ischar(tmp)
-        if strcmpi(tmp,'frequency')
-            isFreq = true;
-        end
-    elseif tmpn==2
+    if tmpn==2
         scaling = tmp;
     elseif (a(k)==1 || b(k)==1) || (tmpn>2 && k>1)
         if any(diff(tmp)<0)
@@ -128,19 +138,19 @@ for k = 1:sum(indTF)
     
     imagesc(t,f,varargin{k},scaling);
     axis xy
-    axis tight
     
     t = tmpt;
     
     if setColorbarOn
         c = colorbar('southoutside');
-        if any(findCellsThatHaveMatchingStringLogical(varargin,'colorbarLabel'))
-            c.Label.String = varargin{findCellsThatHaveMatchingString(varargin,'colorbarLabel')+1};
+        if exist('colorbarLabel','var')
+            c.Label.String = colorbarLabel;
         end
     end
     
-    if any(findCellsThatHaveMatchingStringLogical(varargin,'xlabel'))
-        xlabel(varargin{findCellsThatHaveMatchingString(varargin,'xlabel')+1});
+    if exist('xlab','var')
+        xlabel(xlab);
     end
 end
 linkaxes(ax,'x');
+axis tight
